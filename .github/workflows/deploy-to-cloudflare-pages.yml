@@ -1,0 +1,26 @@
+
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${ secrets.CLOUDFLARE_API_TOKEN }
+          accountId: 413172d4e6de520be83b5b0db63d32be1
+          command: pages deploy ./ --project-name cf-pages-test-new-2026-04-09-12-53-18 --branch=main
+    
